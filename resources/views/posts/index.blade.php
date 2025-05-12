@@ -20,4 +20,6 @@
             </li>
         @endforeach
     </ul>
+    <!-- Пагинация -->
+        {{ $posts->links() }}
 @endsection

@@ -22,10 +22,14 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="border text-red-700">delete</button>
+                        <a href="{{ route('admin.posts.edit', $post->id) }}" class="border py-0.5 text-blue-700">edit</a>
                     </form>
                 </div>
 
             </li>
         @endforeach
     </ul>
+    <div>
+        {{ $posts->links() }}
+    </div>
 @endsection
