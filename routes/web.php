@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +20,21 @@ Route::prefix('posts')->group(function () {
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
-    Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.index');
-    Route::get('/posts/create', [AdminPostController::class, 'create'])->name('admin.posts.create');
-    Route::post('/posts', [AdminPostController::class, 'store'])->name('admin.posts.store');
-    Route::get('/posts/{post}/edit', [AdminPostController::class, 'edit'])->name('admin.posts.edit');
-    Route::put('/posts/{post}', [AdminPostController::class, 'update'])->name('admin.posts.update');
-    Route::delete('/posts/{post}', [AdminPostController::class, 'delete'])->name('admin.posts.delete');
+    Route::prefix('posts')->group(function () {
+        Route::get('/', [AdminPostController::class, 'index'])->name('admin.posts.index');
+        Route::get('/create', [AdminPostController::class, 'create'])->name('admin.posts.create');
+        Route::post('/', [AdminPostController::class, 'store'])->name('admin.posts.store');
+        Route::get('/{post}/edit', [AdminPostController::class, 'edit'])->name('admin.posts.edit');
+        Route::put('/{post}', [AdminPostController::class, 'update'])->name('admin.posts.update');
+        Route::delete('/{post}', [AdminPostController::class, 'delete'])->name('admin.posts.delete');
+    });
+
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [AdminCategoryController::class, 'index'])->name('admin.categories.index');
+        Route::get('/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
+        Route::post('/', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
+        Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
+        Route::put('/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
+        Route::delete('/{category}', [AdminCategoryController::class, 'delete'])->name('admin.categories.delete');
+    });
 });
