@@ -15,7 +15,7 @@
 
             <div class="mb-2">
                 <select name="category_id" class="border p-2">
-                    <option value="">select category</option>
+                    <option>select category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id ?? '') == $category->id)>{{ $category->name }}</option>
                     @endforeach
