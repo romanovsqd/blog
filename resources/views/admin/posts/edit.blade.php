@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    <x-posts.form action="{{ route('admin.posts.update', $post->id) }}" method="PUT" buttonText="save" :post="$post"/>
+    <x-posts.form action="{{ route('admin.posts.update', $post->id) }}" method="PUT" buttonText="save" :post="$post" :categories="$categories"/>
 @endsection

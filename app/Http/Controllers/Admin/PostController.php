@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,8 @@ class PostController extends Controller
 
     public function create(): View
     {
-        return view('admin.posts.create');
+        $categories = Category::query()->get();
+        return view('admin.posts.create', compact('categories'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -26,6 +28,7 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'max:10000'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
         $data['user_id'] = auth()->user()->id;
 
@@ -36,7 +39,8 @@ class PostController extends Controller
 
     public function edit(Post $post): View
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::query()->get();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post): RedirectResponse
@@ -44,6 +48,7 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'max:10000'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
         $post->update($data);
