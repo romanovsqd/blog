@@ -2,7 +2,7 @@
 
 @section('title')
     {{ $post->title }}
-    @endsection
+@endsection
 
 @section('content')
     <div class="mb-4">
@@ -50,6 +50,21 @@
                         <div>
                             <p>{{ $comment->body }}</p>
                         </div>
+
+                        @auth
+
+                            @if (auth()->id() === $comment->user_id || auth()->user()->isAdmin())
+                                <div>
+                                    <form action="{{ route('posts.comments.delete', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="border text-red-700">delete</button>
+                                    </form>
+                                </div>
+                            @endif
+
+                        @endauth
 
                     </li>
                 @empty

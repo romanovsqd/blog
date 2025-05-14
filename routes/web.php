@@ -21,7 +21,8 @@ Route::prefix('posts')->group(function () {
     Route::get('/{post}', [PostController::class, 'show'])->name('posts.show');
 
     Route::middleware('auth')->group(function () {
-        Route::post('/{post}/comments/', [CommentController::class, 'store'])->name('posts.comments.store');
+        Route::post('/{post}/comments', [CommentController::class, 'store'])->name('posts.comments.store');
+        Route::delete('/{post}/comments/{comment}', [CommentController::class, 'delete'])->name('posts.comments.delete');
     });
 });
 
