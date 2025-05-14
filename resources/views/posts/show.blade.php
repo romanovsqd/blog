@@ -26,7 +26,7 @@
             @endguest
 
             @auth
-                <form action="{{ route('posts.comments.store', $post->id) }}" method="POST">
+                <form action="{{ route('posts.comments.store', $post->slug) }}" method="POST">
                     @csrf
 
                     <div>
@@ -55,7 +55,7 @@
 
                             @if (auth()->id() === $comment->user_id || auth()->user()->isAdmin())
                                 <div>
-                                    <form action="{{ route('posts.comments.delete', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST">
+                                    <form action="{{ route('posts.comments.delete', ['post' => $post->slug, 'comment' => $comment->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
 

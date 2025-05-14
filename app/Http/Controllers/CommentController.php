@@ -19,7 +19,7 @@ class CommentController extends Controller
 
         Comment::query()->create($data);
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->slug);
     }
 
     public function delete(Post $post, Comment $comment): RedirectResponse
