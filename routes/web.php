@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\PostController as AdminPostController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,13 @@ Route::prefix('posts')->group(function () {
         Route::post('/{post}/comments', [CommentController::class, 'store'])->name('posts.comments.store');
         Route::delete('/{post}/comments/{comment}', [CommentController::class, 'delete'])->name('posts.comments.delete');
     });
+});
+
+Route::prefix('profile')->middleware(['auth'])->group(function () {
+    Route::redirect('/', '/profile/edit');
+    
+    Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
