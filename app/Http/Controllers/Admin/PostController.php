@@ -28,10 +28,15 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'max:10000'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'category_id' => ['required', 'exists:categories,id'],
         ]);
-        $data['user_id'] = auth()->user()->id;
 
+        if($request->hasFile('image')) {
+            $path = $request->file('image')->store('posts', 'public');
+            $data['image'] = $path;
+        }
+        $data['user_id'] = auth()->user()->id;
         Post::query()->create($data);
 
         return redirect()->route('admin.posts.index');

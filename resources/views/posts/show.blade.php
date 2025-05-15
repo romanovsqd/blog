@@ -7,6 +7,12 @@
 @section('content')
     <div class="mb-4">
 
+        <div class="max-w-72">
+            @if ($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title ?? 'post image' }}" class="max-w-full h-auto">
+            @endif
+        </div>
+
         <div>
             <p>{{ $post->title }}</p>
         </div>

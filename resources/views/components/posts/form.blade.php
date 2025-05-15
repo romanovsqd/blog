@@ -1,5 +1,5 @@
     <div>
-        <form action="{{ $action }}" method="POST">
+        <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if ($method === 'PUT')
                 @method('PUT')
@@ -20,6 +20,10 @@
                         <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id ?? '') == $category->id)>{{ $category->name }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="mb-2">
+                <input type="file" name="image" class="border">
             </div>
 
             <button type="submit" class="p-2 border">{{ $buttonText }}</button>
