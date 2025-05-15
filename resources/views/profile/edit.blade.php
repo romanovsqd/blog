@@ -9,6 +9,11 @@
         <form action="{{ route('profile.update') }}" method="POST">
             @csrf
             @method('PUT')
+
+            <div>
+                <input type="email" name="email" placeholder="email" value="{{ auth()->user()->email }}" class="border">
+            </div>
+
             <div>
                 <input type="text" name="name" placeholder="name" value="{{ auth()->user()->name }}" class="border">
             </div>
