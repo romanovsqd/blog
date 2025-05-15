@@ -34,7 +34,7 @@ Route::prefix('profile')->middleware(['auth'])->group(function () {
     Route::put('/', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::prefix('admin')->middleware(['admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
     Route::prefix('posts')->group(function () {
         Route::get('/', [AdminPostController::class, 'index'])->name('admin.posts.index');
         Route::get('/create', [AdminPostController::class, 'create'])->name('admin.posts.create');
