@@ -12,6 +12,10 @@
             <li class="mb-4">
 
                 <div>
+                    <p>{{ $post->created_at }}</p>
+                </div>
+
+                <div>
                     <p>{{ $post->title }}</p>
                 </div>
 

@@ -39,6 +39,7 @@ class PostController extends Controller
                     });
                 }
             )
+            ->orderBy('created_at', $request->sort === 'oldest' ? 'asc' : 'desc')
             ->paginate(10)
             ->withQueryString();
 

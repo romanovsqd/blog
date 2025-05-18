@@ -15,6 +15,7 @@ class PostController extends Controller
         $request->validate([
             'search' => ['nullable', 'string', 'max:255'],
             'category' => ['nullable', 'string'],
+            'sort' => ['nullable', 'string'],
         ]);
 
         $categories = Category::query()->get();
@@ -37,6 +38,7 @@ class PostController extends Controller
                     });
                 }
             )
+            ->orderBy('created_at', $request->sort === 'oldest' ? 'asc' : 'desc')
             ->paginate(10)
             ->withQueryString();
         return view('posts.index', compact('posts', 'categories'));

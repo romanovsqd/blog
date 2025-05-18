@@ -17,6 +17,13 @@
             </select>
         </div>
 
+        <div>
+            <select name="sort" class="border px-2 py-1 mb-2">
+                <option value="newest" @selected(request('sort') === 'newest')>Newest first</option>
+                <option value="oldest" @selected(request('sort') === 'oldest')>Oldest first</option>
+            </select>
+        </div>
+
         <button type="submit" class="border px-2 py-1">search</button>
 
     </form>
