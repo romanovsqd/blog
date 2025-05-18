@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-
-    <x-posts.search :action="route('admin.posts.index')" />
+    <x-posts.search :action="route('admin.posts.index')" :categories="$categories" />
 
     <ul>
         @foreach ($posts as $post)
@@ -21,7 +20,7 @@
                 </div>
 
                 <div>
-                    <form action="{{ route('admin.posts.delete', $post)}}" method="POST">
+                    <form action="{{ route('admin.posts.delete', $post) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="border text-red-700">delete</button>
@@ -32,6 +31,7 @@
             </li>
         @endforeach
     </ul>
+
     <div>
         {{ $posts->links() }}
     </div>

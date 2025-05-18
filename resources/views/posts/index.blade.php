@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <x-posts.search :action="route('posts.index')" />
+    <x-posts.search :action="route('posts.index')" :categories="$categories" />
 
     <ul>
         @foreach ($posts as $post)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\View\View;
@@ -13,7 +14,10 @@ class PostController extends Controller
     {
         $request->validate([
             'search' => ['nullable', 'string', 'max:255'],
+            'category' => ['nullable', 'integer', 'exists:categories,id'],
         ]);
+
+        $categories = Category::query()->get();
 
         $posts = Post::query()
             ->when(
@@ -25,10 +29,15 @@ class PostController extends Controller
                     });
                 }
             )
+            ->when(
+                $request->category_id,
+                function (Builder $query, int $category_id) {
+                    $query->where('category_id', $category_id);
+                }
+            )
             ->paginate(10)
             ->withQueryString();
-
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'categories'));
     }
 
     public function show(Post $post): View

@@ -16,7 +16,10 @@ class PostController extends Controller
     {
         $request->validate([
             'search' => ['nullable', 'string', 'max:255'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
         ]);
+
+        $categories = Category::query()->get();
 
         $posts = Post::query()
             ->when(
@@ -28,10 +31,16 @@ class PostController extends Controller
                     });
                 }
             )
+            ->when(
+                $request->category_id,
+                function (Builder $query, int $category_id) {
+                    $query->where('category_id', $category_id);
+                }
+            )
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts', 'categories'));
     }
 
     public function create(): View
