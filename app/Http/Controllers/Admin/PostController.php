@@ -8,12 +8,29 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Builder;
 
 class PostController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $posts = Post::query()->paginate(10);
+        $request->validate([
+            'search' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $posts = Post::query()
+            ->when(
+                $request->search,
+                function (Builder $query, string $search) {
+                    $query->where(function (Builder $query) use ($search) {
+                        $query->where('title', 'like', "%{$search}%")
+                            ->orWhere('content', 'like', "%{$search}%");
+                    });
+                }
+            )
+            ->paginate(10)
+            ->withQueryString();
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -32,7 +49,7 @@ class PostController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
         ]);
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $path = $request->file('image')->store('posts', 'public');
             $data['image'] = $path;
         }

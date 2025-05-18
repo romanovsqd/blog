@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+    <x-posts.search :action="route('posts.index')" />
+
     <ul>
         @foreach ($posts as $post)
             <li class="mb-4">
@@ -20,6 +22,8 @@
             </li>
         @endforeach
     </ul>
-    <!-- Пагинация -->
+
+    <div>
         {{ $posts->links() }}
+    </div>
 @endsection

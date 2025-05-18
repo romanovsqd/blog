@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+
+    <x-posts.search :action="route('admin.posts.index')" />
+
     <ul>
         @foreach ($posts as $post)
             <li class="mb-4">
