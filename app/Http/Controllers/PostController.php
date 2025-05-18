@@ -14,7 +14,7 @@ class PostController extends Controller
     {
         $request->validate([
             'search' => ['nullable', 'string', 'max:255'],
-            'category' => ['nullable', 'integer', 'exists:categories,id'],
+            'category' => ['nullable', 'string'],
         ]);
 
         $categories = Category::query()->get();
@@ -30,9 +30,11 @@ class PostController extends Controller
                 }
             )
             ->when(
-                $request->category_id,
-                function (Builder $query, int $category_id) {
-                    $query->where('category_id', $category_id);
+                $request->category,
+                function (Builder $query, string $category) {
+                    $query->whereHas('category', function (Builder $query) use ($category) {
+                        $query->where('slug', $category);
+                    });
                 }
             )
             ->paginate(10)

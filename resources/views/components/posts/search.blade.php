@@ -6,12 +6,12 @@
         </div>
 
         <div>
-            <select name="category_id" class="border px-2 py-1 mb-2">
+            <select name="category" class="border px-2 py-1 mb-2">
 
                 <option value="">All categories</option>
 
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" @selected(request('category_id') == $category->id)>{{ $category->name }}</option>
+                    <option value="{{ $category->slug }}" @selected(request('category') === $category->slug)>{{ $category->name }}</option>
                 @endforeach
 
             </select>
