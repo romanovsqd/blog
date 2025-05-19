@@ -34,14 +34,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('posts', 'public');
-            $data['image'] = $path;
-        }
-
-        $data['user_id'] = auth()->user()->id;
+        $data = $this->prepareData($request);
 
         Post::query()->create($data);
         return redirect()->route('admin.posts.index');
@@ -55,12 +48,7 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('posts', 'public');
-            $data['image'] = $path;
-        }
+        $data = $this->prepareData($request);
 
         $post->update($data);
         return redirect()->route('admin.posts.index');
@@ -71,5 +59,18 @@ class PostController extends Controller
         $post->delete();
         // ToDo: flash messages
         return redirect()->back();
+    }
+
+    private function prepareData(PostRequest $request): array
+    {
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('posts', 'public');
+        }
+
+        $data['user_id'] = auth()->user()->id;
+
+        return $data;
     }
 }
