@@ -8,17 +8,12 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Post\IndexPostRequest;
 
 class PostController extends Controller
 {
-    public function index(Request $request): View
+    public function index(IndexPostRequest $request): View
     {
-        $request->validate([
-            'search' => ['nullable', 'string', 'max:255'],
-            'category' => ['nullable', 'string'],
-            'sort' => ['nullable', 'string'],
-        ]);
-
         $categories = Category::query()->get();
 
         $posts = Post::query()
