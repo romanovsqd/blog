@@ -7,7 +7,6 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Database\Eloquent\Builder;
 
 class CategoryController extends Controller
 {
@@ -18,12 +17,7 @@ class CategoryController extends Controller
         ]);
 
         $categories = Category::query()
-            ->when(
-                $request->search,
-                function (Builder $query, string $search) {
-                    $query->where('name', 'like', "%{$search}%");
-                }
-            )
+            ->search($request->search)
             ->paginate(10)
             ->withQueryString();
 
