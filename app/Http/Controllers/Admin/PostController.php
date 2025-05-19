@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Post\IndexPostRequest;
 use App\Http\Requests\Admin\Post\PostRequest;
 
@@ -48,7 +49,7 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        $data = $this->prepareData($request);
+        $data = $this->prepareData($request, $post);
 
         $post->update($data);
         return redirect()->route('admin.posts.index');
@@ -61,15 +62,20 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-    private function prepareData(PostRequest $request): array
+    private function prepareData(PostRequest $request, ?Post $post = null): array
     {
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
+
+            if ($post && $post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+
             $data['image'] = $request->file('image')->store('posts', 'public');
         }
 
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = auth()->id();
 
         return $data;
     }
