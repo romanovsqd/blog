@@ -71,7 +71,7 @@ class Post extends Model
         );
     }
 
-    public function scopeFilter(Builder $query, ?string $category): Builder
+    public function scopeCategory(Builder $query, ?string $category): Builder
     {
         return $query->when(
             $category,
@@ -83,7 +83,7 @@ class Post extends Model
         );
     }
 
-    public function scoperSortByRequest(Builder $query, ?string $sort)
+    public function scopeSortByDate (Builder $query, ?string $sort): Builder
     {
         return $sort === 'oldest' ? $query->oldest() : $query->latest();
     }

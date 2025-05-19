@@ -23,8 +23,8 @@ class PostController extends Controller
 
         $posts = Post::query()
             ->search($request->search)
-            ->filter($request->category)
-            ->rSortByRequest($request->sort)
+            ->category($request->category)
+            ->sortByDate($request->sort)
             ->paginate(10)
             ->withQueryString();
 
@@ -71,7 +71,7 @@ class PostController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
         ]);
 
-         if ($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $path = $request->file('image')->store('posts', 'public');
             $data['image'] = $path;
         }

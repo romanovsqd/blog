@@ -21,8 +21,8 @@ class PostController extends Controller
 
         $posts = Post::query()
             ->search($request->search)
-            ->filter($request->category)
-            ->rSortByRequest($request->sort)
+            ->category($request->category)
+            ->sortByDate($request->sort)
             ->paginate(10)
             ->withQueryString();
 
