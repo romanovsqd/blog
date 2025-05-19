@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Post\IndexPostRequest;
+use App\Http\Requests\Admin\Post\PostRequest;
 
 class PostController extends Controller
 {
@@ -32,22 +32,18 @@ class PostController extends Controller
         return view('admin.posts.create', compact('categories'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(PostRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string', 'max:10000'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-            'category_id' => ['required', 'exists:categories,id'],
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('posts', 'public');
             $data['image'] = $path;
         }
-        $data['user_id'] = auth()->user()->id;
-        Post::query()->create($data);
 
+        $data['user_id'] = auth()->user()->id;
+
+        Post::query()->create($data);
         return redirect()->route('admin.posts.index');
     }
 
@@ -57,21 +53,16 @@ class PostController extends Controller
         return view('admin.posts.edit', compact('post', 'categories'));
     }
 
-    public function update(Request $request, Post $post): RedirectResponse
+    public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string', 'max:10000'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-            'category_id' => ['required', 'exists:categories,id'],
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('posts', 'public');
             $data['image'] = $path;
         }
-        $post->update($data);
 
+        $post->update($data);
         return redirect()->route('admin.posts.index');
     }
 
