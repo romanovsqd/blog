@@ -4,18 +4,19 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Comment;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     use HasSlug, HasFactory;
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
@@ -48,5 +49,35 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeSearch(Builder $query, ?string $search): Builder
+    {
+        return $query->when(
+            $search,
+            function (Builder $query, string $search) {
+                $query->where(function (Builder $q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('content', 'like', "%{$search}%");
+                });
+            }
+        );
+    }
+
+    public function scopeFilter(Builder $query, ?string $category): Builder
+    {
+        return $query->when(
+            $category,
+            function (Builder $query, string $category) {
+                $query->whereHas('category', function (Builder $q) use ($category) {
+                    $q->where('slug', $category);
+                });
+            }
+        );
+    }
+
+    public function scoperSortByRequest(Builder $query, ?string $sort)
+    {
+        return $sort === 'oldest' ? $query->oldest() : $query->latest();
     }
 }

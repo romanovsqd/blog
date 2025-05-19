@@ -8,7 +8,6 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Database\Eloquent\Builder;
 
 class PostController extends Controller
 {
@@ -17,29 +16,15 @@ class PostController extends Controller
         $request->validate([
             'search' => ['nullable', 'string', 'max:255'],
             'category' => ['nullable', 'string'],
+            'sort' => ['nullable', 'string'],
         ]);
 
         $categories = Category::query()->get();
 
         $posts = Post::query()
-            ->when(
-                $request->search,
-                function (Builder $query, string $search) {
-                    $query->where(function (Builder $query) use ($search) {
-                        $query->where('title', 'like', "%{$search}%")
-                            ->orWhere('content', 'like', "%{$search}%");
-                    });
-                }
-            )
-            ->when(
-                $request->category,
-                function (Builder $query, string $category) {
-                    $query->whereHas('category', function (Builder $query) use ($category) {
-                        $query->where('slug', $category);
-                    });
-                }
-            )
-            ->orderBy('created_at', $request->sort === 'oldest' ? 'asc' : 'desc')
+            ->search($request->search)
+            ->filter($request->category)
+            ->rSortByRequest($request->sort)
             ->paginate(10)
             ->withQueryString();
 
