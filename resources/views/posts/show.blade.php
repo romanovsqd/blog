@@ -8,9 +8,7 @@
     <div class="mb-4">
 
         <div class="max-w-72">
-            @if ($post->image)
-                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title ?? 'post image' }}" class="max-w-full h-auto">
-            @endif
+            <img src="{{ $post->image_url }}" alt="{{ $post->title ?? 'post image' }}" class="max-w-full h-auto">
         </div>
 
         <div>

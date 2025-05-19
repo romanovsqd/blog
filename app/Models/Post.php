@@ -51,6 +51,13 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function getImageUrlAttribute(): string
+    {
+        return $this->image
+        ? asset('storage/' . $this->image)
+        : 'https://placehold.co/600x400';
+    }
+
     public function scopeSearch(Builder $query, ?string $search): Builder
     {
         return $query->when(
