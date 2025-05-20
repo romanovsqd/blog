@@ -24,6 +24,14 @@ class CommentController extends Controller
 
     public function delete(Post $post, Comment $comment): RedirectResponse
     {
+        if ($comment->post_id !== $post->id) {
+            abort(404);
+        }
+
+        if ($comment->user_id !== auth()->id() && !auth()->user()->isAdmin()) {
+            abort(403);
+        }
+
         $comment->delete();
         return redirect()->back();
     }
