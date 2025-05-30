@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex flex-col min-h-full">
+<body class="flex flex-col min-h-full h-full">
     @include('partials.header')
     <main class="flex-1">
         @yield('content')
