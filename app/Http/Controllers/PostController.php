@@ -14,6 +14,7 @@ class PostController extends Controller
         $categories = Category::query()->get();
 
         $posts = Post::query()
+            ->with('category')
             ->search($request->search)
             ->category($request->category)
             ->sortByDate($request->sort)
