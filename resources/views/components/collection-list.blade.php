@@ -3,7 +3,7 @@
     'collectionName' => null,
 ])
 
-@if (empty($collection))
+@if ($collection->isEmpty())
     <div>
         <p class="text-3xl font-bold text-center">No {{ $collectionName }} found</p>
     </div>
