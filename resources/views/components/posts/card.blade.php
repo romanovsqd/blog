@@ -11,11 +11,16 @@
     <div class="px-10 py-5 flex flex-col justify-between flex-grow">
 
         {{-- post header --}}
-        <div class="flex justify-between flex-wrap gap-y-1 items-center font-medium mb-2">
-            <span class="label pr-1">
+        <div class="flex justify-between flex-wrap gap-y-1 items-center font-medium mb-2 max-w-full">
+            <span class="label">
                 <p>{{ $post->created_at->diffForHumans() }}</p>
             </span>
-            <a href="{{ route('categories.show', $post->category->slug) }}" class="link-hover label cursor-pointer">Category: {{ $post->category->name }}</a></strong>
+
+            <strong class="break-words">
+                <a href="{{ route('categories.show', $post->category->slug) }}" class="link-hover whitespace-normal label cursor-pointer">
+                    Category: {{ $post->category->name }}
+                </a>
+            </strong>
         </div>
 
         {{-- post content --}}
@@ -26,9 +31,7 @@
             </div>
         </div>
 
-        <div class="self-center lg:self-end">
-            <a href="{{ route('posts.show', $post->slug) }}" class="uppercase font-semibold btn btn-lg lg:btn-md btn-neutral">Read post</a>
-        </div>
+        {{ $slot }}
 
     </div>
 

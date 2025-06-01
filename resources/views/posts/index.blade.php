@@ -23,7 +23,9 @@
             <x-collection-list :collection="$posts" collectionName="posts">
                 @foreach ($posts as $post)
                     <li>
-                        <x-posts.card :post="$post" />
+                        <x-posts.card :post="$post">
+                            <x-posts.button :route="route('posts.show', $post->slug)"/>
+                        </x-posts.card>
                     </li>
                 @endforeach
             </x-collection-list>

@@ -8,33 +8,9 @@
     <div class="container mx-auto px-4">
         <div class="py-10 max-w-5xl mx-auto text-lg">
 
-            <div class="border-b-2 border-gray-200 mb-5 pb-5">
+            <x-posts.card :post="$post" class="md:w-full mb-5"/>
 
-                <div class="h-96 overflow-hidden">
-                    <img src="{{ $post->image_url }}" alt="{{ $post->title ?? 'post image' }}" class="w-full h-full object-cover object-center">
-                </div>
-
-                <div>
-
-                    <div class="flex justify-between flex-wrap gap-y-1 items-center font-medium mb-2 px-5">
-                        <span class="label pr-1">
-                            <p>{{ $post->created_at->diffForHumans() }}</p>
-                        </span>
-                        <a href="{{ route('categories.show', $post->category->slug) }}" class="link-hover label cursor-pointer">Category: {{ $post->category->name }}</a></strong>
-                    </div>
-
-                    <div class="mb-5 px-4">
-                        <h1 class="text-2xl">{{ $post->title }}</h1>
-                    </div>
-
-                    <div class="indent-4">
-                        <p class="">{{ $post->content }}</p>
-                    </div>
-
-                </div>
-
-            </div>
-
+            
             <div class="mb-5">
 
                 <div class="mb-5">
@@ -114,6 +90,7 @@
             <div>
                 {{ $comments->links() }}
             </div>
+
         </div>
 
     </div>
