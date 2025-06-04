@@ -17,7 +17,7 @@
             </span>
 
             <strong class="break-words">
-                <a href="{{ route('categories.show', $post->category->slug) }}" class="link-hover whitespace-normal label cursor-pointer">
+                <a href="{{ route('categories.show', $post->category) }}" class="link-hover whitespace-normal label cursor-pointer">
                     Category: {{ $post->category->name }}
                 </a>
             </strong>
@@ -25,7 +25,7 @@
 
         {{-- post content --}}
         <div class="mb-2">
-            <h3 class="text-2xl mb-2"><a href="{{ route('posts.show', $post->slug) }}" class="link-hover ">{{ Str::limit($post->title, 70) }}</a></h3>
+            <h3 class="text-2xl mb-2"><a href="{{ route('posts.show', $post) }}" class="link-hover ">{{ Str::limit($post->title, 70) }}</a></h3>
             <div class="text-base">
                 <p class="text-gray-500">{{ Str::limit($post->content, 170, '...') }}</p>
             </div>
