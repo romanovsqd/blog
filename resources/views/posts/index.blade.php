@@ -24,7 +24,7 @@
                 @foreach ($posts as $post)
                     <li>
                         <x-posts.card :post="$post">
-                            <x-posts.button :route="route('posts.show', $post->slug)"/>
+                            <x-button :route="route('posts.show', $post->slug)">Read post</x-button>
                         </x-posts.card>
                     </li>
                 @endforeach

@@ -5,31 +5,37 @@
 @endsection
 
 @section('content')
-    <div class="mb-2">
-        <form action="{{ route('categories.index') }}" method="GET">
+    <div class="container mx-auto px-4">
+        <div class="py-7">
 
-            <div class="mb-2">
-                <input type="text" name="search" placeholder="search categories" class="border px-2 py-1">
-            </div>
+            <x-heading class="text-center mb-10">
+                {{ __('All categories') }}
+            </x-heading>
 
-            <button type="submit" class="border px-2 py-1">search</button>
+            <x-search.form :action="route('categories.index')" class="mb-10 flex justify-center items-center">
+                <x-search.input :placeholder="__('Search categories')" />
+            </x-search.form>
 
-        </form>
-    </div>
+            <x-collection-list :collection="$categories" collectionName="categories" class="md:grid-cols-2 xl:grid-cols-3">
 
-    <ul>
-        @foreach ($categories as $category)
-            <li class="mb-4">
+                @foreach ($categories as $category)
+                    <li>
+                        <div class="shadow-lg h-full rounded-md py-5 px-10 flex justify-between flex-col">
 
-                <div>
-                    <p>{{ $category->name }}</p>
-                </div>
+                            <div class="mb-4">
+                                <h3 class="text-2xl mb-2">{{ $category->name }}</h3>
+                                <p class="text-base label">{{ __('Posts:') }} {{ $category->posts_count }}</p>
+                            </div>
 
-            </li>
-        @endforeach
-    </ul>
+                            <div class="text-center">
+                                <x-button :route="route('categories.show', $category)">{{ __('View posts') }}</x-button>
+                            </div>
 
-    <div>
-        {{ $categories->links() }}
+                        </div>
+                    </li>
+                @endforeach
+            </x-collection-list>
+
+        </div>
     </div>
 @endsection

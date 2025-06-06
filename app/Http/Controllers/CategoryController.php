@@ -16,7 +16,8 @@ class CategoryController extends Controller
 
         $categories = Category::query()
             ->search($request->search)
-            ->paginate(10)
+            ->withCount('posts')
+            ->paginate(9)
             ->withQueryString();
 
         return view('categories.index', compact('categories'));
