@@ -5,24 +5,29 @@
 @endsection
 
 @section('content')
-    <div class="mb-4">
+    <div class="container mx-auto px-4">
+        <div class="py-7">
 
-        <div>
-            <ul>
-                @foreach ($category->posts as $post)
-                    <li class="mb-5">
-                        <div>
-                            <p>{{ $post->title }}</p>
-                        </div>
+            <x-heading class="text-center mb-10">
+                {{ $category->name }}
+            </x-heading>
 
-                        <div>
-                            <p>{{ $post->content }}</p>
-                        </div>
+            <x-search.form :action="route('categories.show', $category)" class="mb-10 flex justify-center items-center">
+
+                <x-search.input :placeholder="__('Search posts')" />
+                <x-search.sort-select />
+
+            </x-search.form>
+
+            <x-collection-list :collection="$posts" collectionName="posts">
+                @foreach ($posts as $post)
+                    <li>
+                        <x-posts.card :post="$post">
+                            <x-button :route="route('posts.show', $post->slug)">Read post</x-button>
+                        </x-posts.card>
                     </li>
                 @endforeach
-            </ul>
+            </x-collection-list>
         </div>
-
     </div>
-
 @endsection

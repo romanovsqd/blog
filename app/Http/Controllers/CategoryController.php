@@ -23,9 +23,19 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    public function show(Category $category): View
+    public function show(Request $request, Category $category): View
     {
-        $category->load('posts');
-        return view('categories.show', compact('category'));
+        $request->validate([
+            'search' => ['nullable', 'string', 'max:255'],
+            'sort' => ['nullable', 'string'],
+        ]);
+
+        $posts = $category->posts()
+            ->search($request->search)
+            ->sortByDate($request->sort)
+            ->with('category')
+            ->paginate(10);
+
+        return view('categories.show', compact('category', 'posts'));
     }
 }
