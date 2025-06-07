@@ -18,13 +18,7 @@
                 </li>
 
                 <li>
-                    <details class="dropdown">
-                        <summary class="">{{ __('Categories') }}</summary>
-                        <ul class="menu dropdown-content bg-base-100 z-1 w-max shadow-sm">
-                            <li><a href="{{ route('categories.index') }}">{{ __('All') }}</a></li>
-                            {{-- //TODO: display categories list --}}
-                        </ul>
-                    </details>
+                    <a href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
                 </li>
 
                 @auth
