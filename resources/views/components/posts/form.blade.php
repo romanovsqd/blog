@@ -1,32 +1,59 @@
-    <div>
-        <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @if ($method === 'PUT')
-                @method('PUT')
-            @endif
+@props([
+    'action' => '#',
+    'method' => null,
+    'categories' => null,
+    'buttonText' => 'Save',
+    'post' => null,
+])
 
-            <div>
-                <input type="text" name="title" placeholder="title" class="border" value="{{ old('title', $post->title ?? '') }}">
-            </div>
+<div {{ $attributes->merge(['class' => '']) }}>
 
-            <div>
-                <textarea name="content" placeholder="content" class="border">{{ old('content', $post->content ?? '') }}</textarea>
-            </div>
+    <form action="{{ $action }}" method="POST" enctype="multipart/form-data" class="w-full lg:w-2/3 mx-auto">
+        @csrf
 
-            <div class="mb-2">
-                <select name="category_id" class="border p-2">
-                    <option>select category</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id ?? '') == $category->id)>{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+        @if ($method === 'PUT')
+            @method('PUT')
+        @endif
 
-            <div class="mb-2">
-                <input type="file" name="image" class="border">
-            </div>
+        <div class="mb-3">
 
-            <button type="submit" class="p-2 border">{{ $buttonText }}</button>
+            <input type="text" name="title" placeholder="Post title" value="{{ old('title', $post->title ?? '') }}" class="input w-full text-lg">
+            @error('title')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
 
-        </form>
-    </div>
+        </div>
+
+        <div class="mb-3">
+            <textarea name="content" placeholder="Post content" class="textarea w-full text-lg min-h-50">{{ old('content', $post->content ?? '') }}</textarea>
+            @error('content')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="mb-3 w-full md lg:w-2/3 mx-auto">
+            <select name="category_id" class="select w-full">
+                <option>select category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id ?? '') == $category->id)>{{ $category->name }}</option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="mb-3 lg:w-2/3 mx-auto">
+            <input type="file" name="image" class="file-input w-full">
+            @error('image')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="lg:w-1/2 mx-auto">
+            <button type="submit" class="btn font-bold w-full">{{ $buttonText }}</button>
+        </div>
+
+    </form>
+
+</div>
