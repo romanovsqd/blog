@@ -32,7 +32,7 @@ Route::prefix('profile')->middleware(['auth'])->group(function () {
     Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 });
 
-Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('posts')->group(function () {
         Route::get('/', [AdminPostController::class, 'index'])->name('admin.posts.index');
         Route::get('/create', [AdminPostController::class, 'create'])->name('admin.posts.create');
@@ -50,4 +50,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
         Route::put('/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
         Route::delete('/{category}', [AdminCategoryController::class, 'delete'])->name('admin.categories.delete');
     });
+});
+
+Route::fallback(function () {
+    abort(404);
 });
