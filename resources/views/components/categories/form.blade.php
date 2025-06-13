@@ -1,15 +1,31 @@
-  <div>
-      <form action="{{ $action }}" method="POST">
-          @csrf
-          @if ($method === 'PUT')
-              @method('PUT')
-          @endif
+@props([
+    'action' => '#',
+    'method' => null,
+    'buttonText' => 'Save',
+    'category' => null,
+])
 
-          <div>
-              <input type="text" name="name" placeholder="category name" class="border" value="{{ old('name', $category->name ?? '') }}">
-          </div>
+<div {{ $attributes->merge(['class' => '']) }}>
+    <form action="{{ $action }}" method="POST" class="w-full md:w-lg mx-auto">
+        @csrf
 
-          <button type="submit" class="p-2 border">{{ $buttonText }}</button>
+        @if ($method === 'PUT')
+            @method('PUT')
+        @endif
 
-      </form>
-  </div>
+        <div class="mb-5">
+
+            <input type="text" name="name" placeholder="Category name" value="{{ old('name', $category->name ?? '') }}" class="input w-full text-lg">
+            @error('name')
+                <span class="text-red-500">{{ $message }}</span>
+            @enderror
+
+        </div>
+
+        <div class="flex flex-col gap-y-4 md:flex-row md:justify-between">
+            <a href="{{ route('admin.categories.index') }}" class="btn font-bold w-full md:w-1/3">{{ __('Back to categories') }}</a>
+            <button type="submit" class="btn font-bold w-full md:w-1/3 btn-neutral">{{ $buttonText }}</button>
+        </div>
+
+    </form>
+</div>
