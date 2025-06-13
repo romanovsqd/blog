@@ -50,8 +50,9 @@
             @enderror
         </div>
 
-        <div class="lg:w-1/2 mx-auto">
-            <button type="submit" class="btn font-bold w-full">{{ $buttonText }}</button>
+        <div class="lg:w-2/3 mx-auto flex flex-col gap-y-4 md:flex-row md:justify-between">
+            <a href="{{ route('admin.posts.index') }}" class="btn font-bold w-full md:w-1/3">{{ __('Back to posts') }}</a>
+            <button type="submit" class="btn font-bold w-full md:w-1/3 btn-neutral">{{ $buttonText }}</button>
         </div>
 
     </form>
