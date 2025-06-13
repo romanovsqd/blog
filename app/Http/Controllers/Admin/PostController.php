@@ -21,6 +21,7 @@ class PostController extends Controller
             ->search($request->search)
             ->category($request->category)
             ->sortByDate($request->sort)
+            ->with('category', 'user')
             ->paginate(10)
             ->withQueryString();
 
