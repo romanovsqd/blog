@@ -19,6 +19,7 @@ class CategoryController extends Controller
 
         $categories = Category::query()
             ->search($request->search)
+            ->withCount('posts')
             ->paginate(10)
             ->withQueryString();
 
