@@ -8,6 +8,8 @@
     <div class="container mx-auto px-4">
         <div class="py-7">
 
+            <x-flash-message />
+
             <x-heading class="text-center mb-10">Manage categories</x-heading>
 
             <x-search.form :action="route('admin.categories.index')" class="mb-10 flex justify-center items-center">

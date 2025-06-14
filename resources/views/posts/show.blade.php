@@ -8,6 +8,8 @@
     <div class="container mx-auto px-4">
         <div class="py-10 max-w-5xl mx-auto text-lg">
 
+            <x-flash-message />
+
             <x-posts.card :post="$post" class="md:w-full mb-5" />
 
             <div class="mb-5">

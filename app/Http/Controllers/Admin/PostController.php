@@ -39,7 +39,7 @@ class PostController extends Controller
         $data = $this->prepareData($request);
 
         Post::query()->create($data);
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('success', 'Post has been created!');
     }
 
     public function edit(Post $post): View
@@ -53,14 +53,13 @@ class PostController extends Controller
         $data = $this->prepareData($request, $post);
 
         $post->update($data);
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('success', 'Post has been updated!');
     }
 
     public function delete(Post $post): RedirectResponse
     {
         $post->delete();
-        // ToDo: flash messages
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Post has been deleted!');
     }
 
     private function prepareData(PostRequest $request, ?Post $post = null): array

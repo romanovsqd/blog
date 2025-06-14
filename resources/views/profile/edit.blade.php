@@ -8,6 +8,8 @@
     <div class="container mx-auto px-4">
         <div class="py-7">
 
+            <x-flash-message />
+
             <x-heading class="text-center mb-10">{{ __('Edit your profile') }}</x-heading>
 
             <div class="w-full md:max-w-lg mx-auto">

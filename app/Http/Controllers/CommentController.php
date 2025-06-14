@@ -19,7 +19,7 @@ class CommentController extends Controller
 
         Comment::query()->create($data);
 
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', $post)->with('success', 'Your comment has been posted!');
     }
 
     public function delete(Post $post, Comment $comment): RedirectResponse
@@ -33,6 +33,6 @@ class CommentController extends Controller
         }
 
         $comment->delete();
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Comment has been deleted!');
     }
 }

@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
         Category::query()->create($data);
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Category has been created!');
     }
 
     public function edit(Category $category): View
@@ -51,13 +51,12 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('error', 'Category has been deleted!');
     }
 
     public function delete(Category $category): RedirectResponse
     {
         $category->delete();
-        // ToDo: flash messages
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Category has been deleted!');
     }
 }
