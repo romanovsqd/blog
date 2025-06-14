@@ -21,18 +21,18 @@ Route::prefix('posts')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::get('/{post}', [PostController::class, 'show'])->name('posts.show');
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/{post}/comments', [CommentController::class, 'store'])->name('posts.comments.store');
         Route::delete('/{post}/comments/{comment}', [CommentController::class, 'delete'])->name('posts.comments.delete');
     });
 });
 
-Route::prefix('profile')->middleware(['auth'])->group(function () {
+Route::prefix('profile')->middleware(['auth', 'verified'])->group(function () {
     Route::redirect('/', '/profile/edit');
     Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 });
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::prefix('posts')->group(function () {
         Route::get('/', [AdminPostController::class, 'index'])->name('admin.posts.index');
         Route::get('/create', [AdminPostController::class, 'create'])->name('admin.posts.create');
