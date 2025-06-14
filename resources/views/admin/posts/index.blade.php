@@ -8,7 +8,7 @@
     <div class="container mx-auto px-4">
         <div class="py-7">
 
-            <x-heading class="text-center">Manage posts</x-heading>
+            <x-heading class="text-center mb-10">Manage posts</x-heading>
 
             <x-search.form :action="route('admin.posts.index')" class="mb-10 flex justify-center items-center">
 
@@ -29,7 +29,7 @@
                     <p class="text-3xl font-bold text-center">No posts found</p>
                 </div>
             @else
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto mb-5">
 
                     <table class="table text-base">
 
@@ -78,7 +78,9 @@
 
                                     {{-- created at --}}
                                     <td>
-                                        {{ $post->created_at->format('d.m.Y H:i') }}
+                                        <div>
+                                            {{ $post->created_at->format('d.m.Y H:i') }}
+                                        </div>
                                     </td>
                                     {{-- updated at --}}
                                     <td>
@@ -126,7 +128,6 @@
                             @endforeach
                         </tbody>
 
-                        <!-- foot -->
                         <tfoot>
                             <tr>
                                 <th>Image</th>
@@ -142,11 +143,11 @@
                     </table>
 
                 </div>
-            @endif
 
-            <div>
-                {{ $posts->links() }}
-            </div>
+                <div>
+                    {{ $posts->links() }}
+                </div>
+            @endif
 
         </div>
     </div>
