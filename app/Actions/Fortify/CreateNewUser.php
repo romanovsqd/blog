@@ -31,6 +31,9 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
+        // TODO: display registration-verification-sent
+        session()->flash('status', 'verification-link-sent');
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
