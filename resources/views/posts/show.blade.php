@@ -15,7 +15,7 @@
             <div class="mb-5">
 
                 @if ($comments->isEmpty())
-                    <strong>No comments yet</strong>
+                    <strong>{{ __('No comments yet') }}</strong>
                 @else
                     <ul>
                         @foreach ($comments as $comment)

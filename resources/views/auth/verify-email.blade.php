@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    verify email
+    {{ __('verify email') }}
 @endsection
 
 @section('content')

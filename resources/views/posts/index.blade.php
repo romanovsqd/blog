@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    posts
+    {{ __('posts') }}
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="py-7">
 
             <x-heading class="text-center mb-10">
-                All posts
+                {{ __('All posts') }}
             </x-heading>
 
             <x-search.form :action="route('posts.index')" class="mb-10 flex justify-center items-center">
@@ -24,7 +24,7 @@
                 @foreach ($posts as $post)
                     <li>
                         <x-posts.card :post="$post">
-                            <x-button :route="route('posts.show', $post->slug)">Read post</x-button>
+                            <x-button :route="route('posts.show', $post->slug)">{{ __('Read post') }}</x-button>
                         </x-posts.card>
                     </li>
                 @endforeach

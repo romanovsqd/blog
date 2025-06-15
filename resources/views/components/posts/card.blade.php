@@ -18,7 +18,7 @@
 
             <strong class="break-words">
                 <a href="{{ route('categories.show', $post->category) }}" class="link-hover whitespace-normal label cursor-pointer">
-                    Category: {{ $post->category->name }}
+                    {{ __('Category:') }} {{ $post->category->name }}
                 </a>
             </strong>
         </div>

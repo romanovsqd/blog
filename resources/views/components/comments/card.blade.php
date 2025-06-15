@@ -29,7 +29,7 @@
                         {{-- dropdown-actions --}}
                         <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                             <li>
-                                <button type="submit" class="text-red-700 font-bold cursor-pointer">delete</button>
+                                <button type="submit" class="text-red-700 font-bold cursor-pointer">{{ __('delete') }}</button>
                             </li>
                         </ul>
 

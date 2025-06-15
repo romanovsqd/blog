@@ -2,7 +2,7 @@
 
 <div {{ $attributes->merge(['class']) }}>
     @guest
-        <strong>Log in to leave a comment</strong>
+        <strong>{{ __('Log in to leave a comment') }}</strong>
     @endguest
 
     @auth
@@ -14,7 +14,7 @@
             </div>
 
             <div>
-                <button type="submit" class="btn btn-neutral btn-lg uppercase">Submit</button>
+                <button type="submit" class="btn btn-neutral btn-lg uppercase">{{ __('Submit') }}</button>
             </div>
 
         </form>

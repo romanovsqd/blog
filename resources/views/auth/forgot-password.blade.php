@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    login
+    {{ __('login') }}
 @endsection
 
 @section('content')

@@ -135,7 +135,7 @@
                                     <li>
                                         <form action="{{ route('logout') }}" method="POST" class="p-0">
                                             @csrf
-                                            <button type="submit" class="text-red-700 py-2 px-3 cursor-pointer">Logout</button>
+                                            <button type="submit" class="text-red-700 py-2 px-3 cursor-pointer">{{ __('Logout') }}</button>
                                         </form>
                                     </li>
 

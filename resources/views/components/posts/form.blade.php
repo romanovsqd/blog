@@ -33,7 +33,7 @@
 
         <div class="mb-3 w-full md lg:w-2/3 mx-auto">
             <select name="category_id" class="select w-full">
-                <option>select category</option>
+                <option>{{ __('select category') }}</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id ?? '') == $category->id)>{{ $category->name }}</option>
                 @endforeach

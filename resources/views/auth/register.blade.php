@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    register
+    {{ __('register') }}
 @endsection
 
 @section('content')

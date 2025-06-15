@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    posts
+    {{ __('posts') }}
 @endsection
 
 @section('content')
@@ -10,7 +10,9 @@
 
             <x-flash-message />
 
-            <x-heading class="text-center mb-10">Manage posts</x-heading>
+            <x-heading class="text-center mb-10">
+                {{ __('Manage posts') }}
+            </x-heading>
 
             <x-search.form :action="route('admin.posts.index')" class="mb-10 flex justify-center items-center">
 
@@ -28,7 +30,7 @@
 
             @if ($posts->isEmpty())
                 <div>
-                    <p class="text-3xl font-bold text-center">No posts found</p>
+                    <p class="text-3xl font-bold text-center">{{ __('No posts found') }}</p>
                 </div>
             @else
                 <div class="overflow-x-auto mb-5">
@@ -37,13 +39,13 @@
 
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Author</th>
-                                <th>Created at</th>
-                                <th>Updated at</th>
-                                <th>Actions</th>
+                                <th>{{ __('Image') }}</th>
+                                <th>{{ __('Title') }}</th>
+                                <th>{{ __('Category') }}</th>
+                                <th>{{ __('Author') }}</th>
+                                <th>{{ __('Created at') }}</th>
+                                <th>{{ __('Updated at') }}</th>
+                                <th>{{ __('Actions') }}</th>
                             </tr>
                         </thead>
 
@@ -108,15 +110,15 @@
                                                 <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow-sm font-medium">
 
                                                     <li>
-                                                        <a href="{{ route('posts.show', $post) }}" target="_blank">Show</a>
+                                                        <a href="{{ route('posts.show', $post) }}" target="_blank">{{ __('Show') }}</a>
                                                     </li>
 
                                                     <li>
-                                                        <a href="{{ route('admin.posts.edit', $post) }}">Edit</a>
+                                                        <a href="{{ route('admin.posts.edit', $post) }}">{{ __('Edit') }}</a>
                                                     </li>
 
                                                     <li>
-                                                        <button type="submit" class="text-red-700">Delete</button>
+                                                        <button type="submit" class="text-red-700">{{ __('Delete') }}</button>
                                                     </li>
 
                                                 </ul>

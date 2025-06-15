@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    profile settings
+    {{ __('profile settings') }}
 @endsection
 
 @section('content')
