@@ -22,8 +22,8 @@ class PostFactory extends Factory
             'title' => fake()->sentence(),
             'content' => fake()->text(),
             'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
-            'user_id' => User::inRandomOrder()->value('id'),
-            'category_id' => Category::inRandomOrder()->value('id'),
+            'user_id' => User::factory(),
+            'category_id' => Category::factory(),
         ];
     }
 }

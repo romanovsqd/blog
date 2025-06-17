@@ -21,8 +21,8 @@ class CommentFactory extends Factory
         return [
             'body' => fake()->text(),
             'created_at' => fake()->dateTimeBetween('-6 month', 'now'),
-            'user_id' => User::inRandomOrder()->value('id'),
-            'post_id' => Post::inRandomOrder()->value('id'),
+            'user_id' => User::factory(),
+            'post_id' => Post::factory(),
         ];
     }
 }
