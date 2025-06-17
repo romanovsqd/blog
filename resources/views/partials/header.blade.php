@@ -3,14 +3,14 @@
     <div class="container mx-auto px-4 flex justify-between items-center">
 
         <div>
-            <a class="btn btn-ghost text-xl">{{ __('Blog') }}</a>
+            <a href="{{ route('home.index') }}" class="btn btn-ghost text-xl">{{ __('Blog') }}</a>
         </div>
 
         <div class="hidden md:block">
 
             <ul class="menu menu-horizontal gap-2 text-base">
                 <li>
-                    <a href="#">{{ __('Home') }}</a>
+                    <a href="{{ route('home.index') }}">{{ __('Home') }}</a>
                 </li>
 
                 <li>
