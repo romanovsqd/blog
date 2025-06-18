@@ -33,6 +33,6 @@ class CommentController extends Controller
         }
 
         $comment->delete();
-        return redirect()->back()->with('error', 'Comment has been deleted!');
+        return redirect()->route('posts.show', $post)->with('error', 'Comment has been deleted!');
     }
 }
