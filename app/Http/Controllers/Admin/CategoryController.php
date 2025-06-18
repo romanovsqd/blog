@@ -51,12 +51,12 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('admin.categories.index')->with('error', 'Category has been deleted!');
+        return redirect()->route('admin.categories.index')->with('success', 'Category has been updated!');
     }
 
     public function delete(Category $category): RedirectResponse
     {
         $category->delete();
-        return redirect()->back()->with('error', 'Category has been deleted!');
+        return redirect()->route('admin.categories.index')->with('error', 'Category has been deleted!');
     }
 }
