@@ -59,7 +59,7 @@ class PostController extends Controller
     public function delete(Post $post): RedirectResponse
     {
         $post->delete();
-        return redirect()->back()->with('error', 'Post has been deleted!');
+        return redirect()->route('admin.posts.index')->with('error', 'Post has been deleted!');
     }
 
     private function prepareData(PostRequest $request, ?Post $post = null): array
